@@ -4,6 +4,7 @@ using UnityEngine;
 using SocketIO;
 using Project.Utility;
 using System;
+using Project.Player;
 
 namespace Project.Networking {
     public class NetworkClient : SocketIOComponent {
@@ -69,6 +70,16 @@ namespace Project.Networking {
                 NetworkIdentity ni = serverObjects[id];
                 ni.transform.position = new Vector3(x, y, 0);
             });
+
+            On("updateRotation", (E) => {
+                string id = E.data["id"].ToString().RemoveQuotes();
+                float tankRotation = E.data["tankRotation"].f;
+                float barrelRotation = E.data["barrelRotation"].f;
+
+                NetworkIdentity ni = serverObjects[id];
+                ni.transform.localEulerAngles = new Vector3(0, 0, tankRotation);
+                ni.GetComponent<PlayerManager>().SetRotation(barrelRotation);
+            });
         }
     }
 
@@ -83,5 +94,11 @@ namespace Project.Networking {
     public class Position {
         public float x;
         public float y;
+    }
+
+    [Serializable]
+    public class PlayerRotation {
+        public float tankRotation;
+        public float barrelRotation;
     }
 }
