@@ -1,4 +1,5 @@
 ﻿using Project.Networking;
+using Project.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,8 @@ namespace Project.Player {
         [Header("Object References")]
         [SerializeField]
         private Transform barrelPivot;
+        [SerializeField]
+        private Transform bulletSpawnPoint;
 
         [Header("Class References")]
         [SerializeField]
@@ -24,10 +27,21 @@ namespace Project.Player {
 
         private float lastRotation;
 
+        private BulletData bulletData;
+        private Cooldown shootingCooldown;
+
+        public void Start() {
+            shootingCooldown = new Cooldown(1);
+            bulletData = new BulletData();
+            bulletData.position = new Position();
+            bulletData.direction = new Position();
+        }
+
         public void Update() {
             if (networkIdentity.IsControlling()) {
                 checkMovement();
                 checkAiming();
+                checkShooting();
             }
         }
 
@@ -56,6 +70,21 @@ namespace Project.Player {
             lastRotation = rot;
 
             barrelPivot.rotation = Quaternion.Euler(0, 0, rot + BARREL_PIVOT_OFFSET);
+        }
+
+        private void checkShooting() {
+            shootingCooldown.CooldownUpdate();
+
+            if(Input.GetMouseButton(0) && !shootingCooldown.IsOnCooldown()) {
+                shootingCooldown.StartCooldown();
+
+                bulletData.position.x = bulletSpawnPoint.position.x.TwoDecimals();
+                bulletData.position.y = bulletSpawnPoint.position.y.TwoDecimals();
+                bulletData.direction.x = bulletSpawnPoint.up.x;
+                bulletData.direction.y = bulletSpawnPoint.up.y;
+
+                networkIdentity.GetSocket().Emit("fireBullet", new JSONObject(JsonUtility.ToJson(bulletData)));
+            }
         }
     }
 }

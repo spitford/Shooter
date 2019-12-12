@@ -158,6 +158,7 @@ MonoBehaviour:
   networkContainer: {fileID: 1885437526}
   playerPrefab: {fileID: 7650598972655187439, guid: 91f89c283cdf3f4418760826291b7858,
     type: 3}
+  serverSpawnables: {fileID: 11400000, guid: 88c4aea46be0bbd4ea415f343f5b0c25, type: 2}
 --- !u!4 &252473743
 Transform:
   m_ObjectHideFlags: 0
