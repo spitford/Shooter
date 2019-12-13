@@ -78,6 +78,7 @@ namespace Project.Player {
             if(Input.GetMouseButton(0) && !shootingCooldown.IsOnCooldown()) {
                 shootingCooldown.StartCooldown();
 
+                bulletData.activator = NetworkClient.ClientID;
                 bulletData.position.x = bulletSpawnPoint.position.x.TwoDecimals();
                 bulletData.position.y = bulletSpawnPoint.position.y.TwoDecimals();
                 bulletData.direction.x = bulletSpawnPoint.up.x;
