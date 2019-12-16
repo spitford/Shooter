@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 9000495532455942964}
   - component: {fileID: -5329114276345339129}
   - component: {fileID: -8417184055561788876}
-  - component: {fileID: 6615550254737092558}
+  - component: {fileID: 6758621304357786230}
   m_Layer: 0
   m_Name: Player - Prefab
   m_TagString: Untagged
@@ -449,7 +449,7 @@ MonoBehaviour:
   oldTankRotation: 0
   oldBarrelRotation: 0
   playerManager: {fileID: -5329114276345339129}
---- !u!58 &6615550254737092558
+--- !u!58 &6758621304357786230
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
