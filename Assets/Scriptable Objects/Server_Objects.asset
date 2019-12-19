@@ -16,3 +16,6 @@ MonoBehaviour:
   - Name: Bullet
     Prefab: {fileID: 1850730417624885370, guid: fd64f05a48f497e4ca4e5fe85860054b,
       type: 3}
+  - Name: AI_Base
+    Prefab: {fileID: 1915421205509291360, guid: 3e0200beecc45704eae070cb7e136201,
+      type: 3}
